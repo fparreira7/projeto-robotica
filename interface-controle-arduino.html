@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle do Robô</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .controller {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #3c4043;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .arrow {
+            font-size: 3em;
+            cursor: pointer;
+            margin: 10px;
+            user-select: none;
+            transition: transform 0.2s;
+        }
+
+        .arrow:hover {
+            transform: scale(1.2);
+            color: #61dafb;
+            /* Cor ao passar o mouse */
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .horizontal {
+            display: flex;
+            justify-content: center;
+        }
+
+        .meio {
+            display: flex;
+        }
+    </style>
+    <script>
+        function sendCommand(command) {
+            fetch(`/${command}`, { method: 'POST' })
+                .then(response => {
+                    if (!response.ok) {
+                        console.error('Erro ao enviar comando:', command);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Controle do Robô</h1>
+    <div class="controller">
+        <div class="arrow" onclick="sendCommand('frente')">&#8593;</div> <!-- Seta para cima -->
+
+        <div class="meio">
+
+            <div class="arrow" onclick="sendCommand('esquerda')">&#8592;</div>
+            <!-- Seta para esquerda -->
+
+            <div class="arrow" onclick="sendCommand('parar')">⏹️</div> <!-- Seta de parar -->
+
+            <div class="arrow" onclick="sendCommand('direita')">&#8594;</div> <!-- Seta para direita -->
+
+        </div>
+
+        <div class="arrow" onclick="sendCommand('tras')">&#8595;</div> <!-- Seta para baixo -->
+
+    </div>
+</body>
+
+</html>
